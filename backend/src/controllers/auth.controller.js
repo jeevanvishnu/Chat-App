@@ -15,6 +15,11 @@ export const signup = async (req,res) =>{
           return   res.status(status.NOT_FOUND).json({message:"Password must be atleast 6 letter"})
         }
         
+        const emailRegex = /^[^@]+@[^@]+\.[^@]+$/
+        if(!emailRegex.test(email)){
+            return res.status(status.BAD_REQUEST).json({message:"Email is Invalid"})
+        }
+        
         const user = await User.findOne({email:email})
 
         if(user) {
@@ -30,8 +35,8 @@ export const signup = async (req,res) =>{
         })
 
         if(newUser){
-            generateToken(newUser._id , res)
-            await newUser.save()
+           const savedUser = await newUser.save()
+            generateToken(savedUser._id , res)
             res.status(status.CREATED).json({
                 _id:newUser._id,
                 fullName:newUser.fullName,

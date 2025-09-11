@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import logger from "morgan";
 import path from 'path'
+import cookieParse from 'cookie-parser'
 import authRouter from "./router/auth.router.js";
 import messageRouter from './router/message.router.js'
 import { connectDb } from "./lib/db.js";
@@ -15,6 +16,7 @@ const __dirname = path.resolve()
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParse())
 app.use("/api/auth", authRouter);
 app.use('/api/message',messageRouter)
 

@@ -7,6 +7,10 @@ export const generateToken = async (userId , res) =>{
 
     const secrect = process.env.JWT_SECRECT_KEY
 
+    if(!secrect){
+        throw new Error('JWT_SECRECT is messing')
+    }
+
     const token = jwt.sign({userId},secrect,{
         expiresIn:'7d'
     })
