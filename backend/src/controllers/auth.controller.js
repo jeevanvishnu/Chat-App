@@ -1,4 +1,3 @@
-
 import status from 'http-status'
 import User from '../model/user.model.js'
 import bcrypt from 'bcrypt'
@@ -89,7 +88,6 @@ export const logout = (req , res) =>{
     } catch (error) {
         console.log('Error of logout controller',error);
         res.status(status.INTERNAL_SERVER_ERROR).json({message:"Internal server error"})
-        
-        
+         
     }
 }
