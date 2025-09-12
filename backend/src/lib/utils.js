@@ -8,7 +8,7 @@ export const generateToken = async (userId , res) =>{
     const secrect = process.env.JWT_SECRECT_KEY
 
     if(!secrect){
-        throw new Error('JWT_SECRECT is messing')
+        throw new Error('JWT_SECRECT is missing')
     }
 
     const token = jwt.sign({userId},secrect,{

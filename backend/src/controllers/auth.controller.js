@@ -2,6 +2,7 @@ import status from 'http-status'
 import User from '../model/user.model.js'
 import bcrypt from 'bcrypt'
 import { generateToken } from '../lib/utils.js'
+import { sendWelcomeEmail } from '../emails/emailHandlers.js'
 
 export const signup = async (req,res) =>{
   const {fullName , email , password} = req.body
@@ -43,6 +44,18 @@ export const signup = async (req,res) =>{
                 email:newUser.email,
                 profilePic:newUser.profilePic
             })
+
+        // todo:send a welcome email by user
+            try{
+
+              await  sendWelcomeEmail(savedUser.email , savedUser.name , process.env.CLIENT_URL)
+
+            }catch(error){
+
+                console.log('Failed to send welcome email',error);
+            }
+
+
         }else{
             res.status(status.NOT_FOUND).json({message:'Invaild user data'})
         }
