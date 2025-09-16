@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route , Routes ,Navigate} from 'react-router-dom'
+import  {Toaster} from "react-hot-toast"
 import SignupPage from './page/SignupPage'
 import ChatPage from './page/ChatPage'
 import LoginPage from './page/LoginPage'
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/login' element={!authUser ? <LoginPage/> : <Navigate to={'/'}/>}></Route>
         <Route path='/signup' element={!authUser ? <SignupPage/> : <Navigate to={'/'}/>}></Route>
       </Routes>
+      <Toaster/>
     </div>
   )
 }
