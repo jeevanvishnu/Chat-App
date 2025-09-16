@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import logger from "morgan";
 import path from 'path'
+import cors from 'cors'
 import cookieParse from 'cookie-parser'
 import authRouter from "./router/auth.router.js";
 import messageRouter from './router/message.router.js'
@@ -15,6 +16,7 @@ const __dirname = path.resolve()
 // middleware setup
 app.use(logger("dev"));
 app.use(express.json());
+app.use(cors({origin:process.env.CLIENT_URL , credentials:true}))
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParse())
 app.use("/api/auth", authRouter);
