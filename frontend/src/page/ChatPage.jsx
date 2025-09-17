@@ -10,7 +10,7 @@ import ChatContainer from '../components/ChatContainer'
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder'
 
 const ChatPage = () => {
-  const {activeTab , selectedUser} = UseChatStore()
+  const {activeTabs , selectedUser} = UseChatStore()
   const {Logout} = userAuthStore()
   return (
     <div className='relative w-full max-w-6xl h-[800px]'>
@@ -21,7 +21,7 @@ const ChatPage = () => {
          <ActiveTabSwitch/>
 
          <div className='flex-1 overflow-auto p-4 space-y-2'>
-          {activeTab === "chat" ? <ChatList/> : <ContactList/>}
+          {activeTabs === "chats" ? <ChatList/> : <ContactList/>}
 
          </div>
         </div>

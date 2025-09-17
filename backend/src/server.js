@@ -15,9 +15,9 @@ const __dirname = path.resolve()
 
 // middleware setup
 app.use(logger("dev"));
-app.use(express.json());
+app.use(express.json({limit:'10mb'}));
 app.use(cors({origin:process.env.CLIENT_URL , credentials:true}))
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({limit:'10mb', extended: true }));
 app.use(cookieParse())
 app.use("/api/auth", authRouter);
 app.use('/api/message',messageRouter)
