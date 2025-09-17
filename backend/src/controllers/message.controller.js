@@ -83,19 +83,21 @@ export const sendMessage = async (req ,res) =>{
 export const getChatPartner = async (req , res) =>{
 
     try {
-        const logedInUserId = req.user._id
+        const loggedInUserId = req.user._id
 
-        const message = await Message.find({_id:{$ne:logedInUserId}})
+        const message = await Message.find({
+      $or: [{ senderId: loggedInUserId }, { receivedId: loggedInUserId }],
+    });
 
         const chatPartnerId = [
           ...new Set(
             message.map((map) =>
-              map.senderId === logedInUserId ? map.receivedId : map.senderId
+              map.senderId.toString() === loggedInUserId.toString() ? map.receivedId.toString() : map.senderId.toSting()
             )
           ),
         ];
         
-        const chatPartners = await User.find({_id : {$in:chatPartnerId}})
+        const chatPartners = await User.find({_id : {$in:chatPartnerId}}).select('-password')
 
         res.status(status.OK).json(chatPartners)
 
@@ -104,3 +106,4 @@ export const getChatPartner = async (req , res) =>{
         res.status(status.INTERNAL_SERVER_ERROR).json({message:"Internal server errror"})
     }
 }
+
