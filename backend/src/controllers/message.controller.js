@@ -92,7 +92,7 @@ export const getChatPartner = async (req , res) =>{
         const chatPartnerId = [
           ...new Set(
             message.map((map) =>
-              map.senderId.toString() === loggedInUserId.toString() ? map.receivedId.toString() : map.senderId.toSting()
+              map.senderId.toString() === loggedInUserId.toString() ? map.receivedId.toString() : map.senderId.toString()
             )
           ),
         ];
