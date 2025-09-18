@@ -10,8 +10,7 @@ import ChatContainer from '../components/ChatContainer'
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder'
 
 const ChatPage = () => {
-  const {activeTabs , selectedUser} = UseChatStore()
-  const {Logout} = userAuthStore()
+  const {activeTabs , selectUser} = UseChatStore()
   return (
     <div className='relative w-full max-w-6xl h-[800px]'>
       <BorderAnimatedContainer>
@@ -28,7 +27,7 @@ const ChatPage = () => {
 
         {/* Right Side */}
         <div className='flex-1 flex flex-col bg-slate-900/50 backdrop:blur-sm'>
-          {selectedUser ? <ChatContainer/> : <NoConversationPlaceholder/>}
+          {selectUser ? <ChatContainer/> : <NoConversationPlaceholder/>}
         </div>
       </BorderAnimatedContainer>
     </div>

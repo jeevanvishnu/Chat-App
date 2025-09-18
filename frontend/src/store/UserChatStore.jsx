@@ -49,7 +49,7 @@ export const UseChatStore = create((set , get)=>({
     getMessageByUserId:async(userId) =>{
         set({isMessageLoading:true})
         try {
-            const res = await axiosInstance.get(`/message${userId}`)
+            const res = await axiosInstance.get(`/message/${userId}`)
             set({message:res.data})
         } catch (error) {
            console.log('Error is getmessageuserid',error);
