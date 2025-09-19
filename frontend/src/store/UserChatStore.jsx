@@ -82,5 +82,30 @@ export const UseChatStore = create((set , get)=>({
             console.log("Error is sendMessage" , error);
             toast.error(error?.response?.data?.message|| "Something Wrong")
         }
+    },
+    subscribeToMessage:()=>{
+        const {selectUser , isSoundEnable} = get()
+        if(!selectUser) return
+
+        const socket = userAuthStore.getState().socket
+        
+        socket.on('newMessage',(newMessage)=>{
+            const isMessageSendFromSelectedUser = newMessage.senderId === selectUser._id
+            if(!isMessageSendFromSelectedUser) return
+            
+            const currentMessage = get().message
+            set({message:[...currentMessage , newMessage]})
+
+            if(isSoundEnable){
+                const notificationSound = new Audio('/sounds/notification.mp3')
+                notificationSound.currentTime =0
+                notificationSound.play().catch((e)=>console.log("Audio play failed",e));
+                
+            }
+        })
+    },
+    unsubscribeFromMessage:()=>{
+        const socket = userAuthStore.getState().socket
+        socket.off('newMessage')
     }
 }))
