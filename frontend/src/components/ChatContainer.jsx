@@ -7,12 +7,15 @@ import NoHistoryPlaceholder from "./NoHistoryPlaceholder";
 import MessageInput from "./MessageInput";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton";
 const ChatContainer = () => {
-  const { selectUser, getMessageByUserId, message , isMessageLoading } = UseChatStore();
+  const { selectUser, getMessageByUserId, message , isMessageLoading ,subscribeToMessage , unsubscribeFromMessage } = UseChatStore();
   const { authUser } = userAuthStore();
   const messageEndRef = useRef()
   useEffect(() => {
     getMessageByUserId(selectUser._id);
-  }, [selectUser, getMessageByUserId]);
+    subscribeToMessage()
+    // reset notification
+    return () => unsubscribeFromMessage()
+  }, [selectUser, getMessageByUserId , subscribeToMessage , unsubscribeFromMessage]);
 
   useEffect(()=>{
     if(messageEndRef.current){

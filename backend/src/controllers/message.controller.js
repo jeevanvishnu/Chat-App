@@ -2,6 +2,7 @@ import status from "http-status";
 import User from "../model/user.model.js";
 import Message from '../model/message.model.js'
 import cloudinary from "../lib/claudinary.js";
+import { getReciverSocetId, io } from "../socket.js";
 
 export const getAllContact = async (req , res) =>{
     
@@ -72,6 +73,12 @@ export const sendMessage = async (req ,res) =>{
         })
 
         await newMessage.save()
+        //todo send real time message
+        
+        const reciverSocketId = getReciverSocetId(reciverId)
+        if(reciverSocketId){
+            io.to(reciverSocketId).emit('newMessage',newMessage)
+        }
         res.status(status.OK).json(newMessage)
         
     } catch (error) {
