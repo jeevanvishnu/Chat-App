@@ -57,7 +57,7 @@ const ProfileHeader = () => {
             <h3 className="text-slate-200 font-medium text-base max-w-[180px] truncate">
               {authUser.fullName}
             </h3>
-            <p className="text-slate-400 text-xs"></p>
+            <p className="text-slate-400 text-xs">Online</p>
           </div>
         </div>
         {/* Buttons */}

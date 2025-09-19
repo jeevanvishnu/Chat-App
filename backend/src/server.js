@@ -1,4 +1,5 @@
-import express from "express";
+import {app , server} from './socket.js'
+import express from 'express'
 import dotenv from "dotenv";
 import logger from "morgan";
 import path from 'path'
@@ -10,9 +11,7 @@ import { connectDb } from "./lib/db.js";
 
 
 dotenv.config();
-const app = express();
 const __dirname = path.resolve()
-
 // middleware setup
 app.use(logger("dev"));
 app.use(express.json({limit:'10mb'}));
@@ -33,7 +32,7 @@ app.get(/(.*)/,(_ ,res)=>{
 // Port setup
 const PORT = process.env.PORT || 3000;
 connectDb().then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`The Port has running on ${PORT}`);
   });
 });
