@@ -29,6 +29,8 @@ if(process.env.NODE_ENV === 'production'){
 app.get(/(.*)/,(_ ,res)=>{
    res.sendFile(path.join(__dirname , '../frontend/dist/index.html'))
 })
+
+
 // Port setup
 const PORT = process.env.PORT || 3000;
 connectDb().then(() => {
