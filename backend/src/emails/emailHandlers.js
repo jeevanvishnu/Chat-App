@@ -9,7 +9,7 @@ export const sendWelcomeEmail = async (email , name , clintUrl) =>{
     const {error , data} = await resendClient.emails.send({
         from:`${Sender.name} <${Sender.email}>`,
         to:email,
-        subject:'welcome to chatify',
+        subject:'welcome to chaty',
         html:createWelcomeEmailTemplate(name,clintUrl)
     })
 
